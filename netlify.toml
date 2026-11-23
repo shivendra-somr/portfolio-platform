@@ -8,34 +8,34 @@
   NODE_VERSION = "22"
 
 # Forward API + API docs to the Spring Boot backend on Render (same-origin, so no CORS).
-# >>> Replace YOUR-BACKEND with your Render service name. <<<
+# Backend: Render service portfolio-backend-734x
 [[redirects]]
   from = "/api/*"
-  to = "https://YOUR-BACKEND.onrender.com/api/:splat"
+  to = "https://portfolio-backend-734x.onrender.com/api/:splat"
   status = 200
   force = true
 
 [[redirects]]
   from = "/swagger-ui/*"
-  to = "https://YOUR-BACKEND.onrender.com/swagger-ui/:splat"
+  to = "https://portfolio-backend-734x.onrender.com/swagger-ui/:splat"
   status = 200
   force = true
 
 [[redirects]]
   from = "/swagger-ui.html"
-  to = "https://YOUR-BACKEND.onrender.com/swagger-ui/index.html"
+  to = "https://portfolio-backend-734x.onrender.com/swagger-ui/index.html"
   status = 200
   force = true
 
 [[redirects]]
   from = "/v3/api-docs/*"
-  to = "https://YOUR-BACKEND.onrender.com/v3/api-docs/:splat"
+  to = "https://portfolio-backend-734x.onrender.com/v3/api-docs/:splat"
   status = 200
   force = true
 
 [[redirects]]
   from = "/v3/api-docs"
-  to = "https://YOUR-BACKEND.onrender.com/v3/api-docs"
+  to = "https://portfolio-backend-734x.onrender.com/v3/api-docs"
   status = 200
   force = true
 
