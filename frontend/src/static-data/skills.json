@@ -1,0 +1,26 @@
+[
+  {
+    "category": "Languages",
+    "items": ["Java (8/17)", "SQL", "TypeScript", "JavaScript"]
+  },
+  {
+    "category": "Backend & Architecture",
+    "items": ["Spring Boot 3.x", "Spring Framework", "Spring Data JPA", "Hibernate", "RESTful APIs", "Reactive / Non-Blocking Execution", "OpenFeign", "Multi-Tenant Architecture", "Spring Security", "JWT", "OAuth 2.0"]
+  },
+  {
+    "category": "Frontend",
+    "items": ["React", "TypeScript", "React Router", "HTML5", "CSS3", "Vite"]
+  },
+  {
+    "category": "AI & LLM Engineering",
+    "items": ["Google Gemini API", "AI Agent Tool Calling", "RAG", "ChromaDB (Vector Store)", "Text Chunking & Embeddings", "OCR Processing"]
+  },
+  {
+    "category": "Databases & Data Pipelines",
+    "items": ["PostgreSQL", "TimescaleDB", "MySQL", "Indexing & Query Optimization", "AWS S3", "AWS Athena", "AWS Glue", "Hive", "Parquet", "Avro", "Apache Airflow"]
+  },
+  {
+    "category": "Engineering & API Tools",
+    "items": ["Docker", "Maven", "Gradle", "Git", "GitHub", "Postman", "Swagger (OpenAPI)", "Kaitai Struct", "Quick License Manager (QLM)"]
+  }
+]

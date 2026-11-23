@@ -1,0 +1,61 @@
+[
+  {
+    "id": "workexcellence-ai",
+    "title": "WorkExcellence AI",
+    "subtitle": "Multi-Tenant AI Agent & RAG Backend",
+    "category": "Backend & GenAI Architecture",
+    "featured": true,
+    "url": "https://workexcellencetechnology.com",
+    "repoUrl": "",
+    "image": "",
+    "description": "A multi-tenant AI backend service supporting streaming conversational workflows, tool-calling AI agents, and Retrieval-Augmented Generation (RAG).",
+    "highlights": [
+      "Designed and developed a multi-tenant AI backend service supporting streaming conversational workflows, tool-calling AI agents, and RAG.",
+      "Implemented an extensible AI agent tool-execution framework with specialized tools (Activity, Element, PageCompletion, Tooltip, KnowledgeBase), thread-safe execution context propagation, and tool-response sanitization.",
+      "Developed document ingestion pipelines with OCR text extraction, text chunking, embedding generation, and semantic indexing using ChromaDB.",
+      "Engineered tenant-aware database connection routing, per-account API key resolution, reactive-to-blocking execution bridging, and authenticated inter-service communication via OpenFeign."
+    ],
+    "tech": ["Java", "Spring Boot 3.x", "Google Gemini API", "ChromaDB", "OpenFeign", "Spring Data JPA", "Reactive Execution", "Docker", "Gradle"]
+  },
+  {
+    "id": "drive-analyzer",
+    "title": "DA - Drive Analyzer (ULINK Technology)",
+    "subtitle": "Drive Health Analytics & Predictive Monitoring",
+    "category": "Telemetry & Data Pipelines",
+    "featured": true,
+    "url": "https://ulink-da.com",
+    "repoUrl": "",
+    "image": "",
+    "description": "Backend modules of a multi-tenant drive-health analytics platform processing telemetry across 2M+ monitored drives globally.",
+    "metrics": [
+      { "value": "2M+", "label": "drives monitored" },
+      { "value": "99%+", "label": "drive-model compatibility" },
+      { "value": "12 days", "label": "median failure warning (vs. 3 for S.M.A.R.T.)" }
+    ],
+    "highlights": [
+      "Contributed to backend modules of a multi-tenant drive-health analytics platform processing telemetry across 2M+ monitored drives globally.",
+      "Worked on binary telemetry parsing using Kaitai Struct and conversion of drive logs into Avro records for storage and downstream analytics in AWS S3.",
+      "Monitored and maintained end-to-end Apache Airflow workflows covering S3 ingestion, Athena/Glue cataloging, hourly data processing, AI predictions, notifications, and TimescaleDB persistence.",
+      "Implemented OAuth 2.0 authorization-code flows across authorization and resource servers, OTP-based account activation, passwordless support-account access, and maintenance across a multimodule Maven application."
+    ],
+    "tech": ["Java", "TimescaleDB", "AWS S3", "Athena", "Glue", "Apache Airflow", "Avro", "Kaitai Struct", "OAuth 2.0", "Docker"]
+  },
+  {
+    "id": "portfolio-platform",
+    "title": "Portfolio & Blog Platform",
+    "subtitle": "This site: React + Spring Boot",
+    "category": "Full Stack",
+    "featured": false,
+    "url": "",
+    "repoUrl": "",
+    "image": "",
+    "description": "The site you're on. React + TypeScript frontend with a Spring Boot backend: JWT auth, PostgreSQL full-text search, Redis caching, nested comments with moderation, and OpenAPI docs.",
+    "highlights": [
+      "Stateless JWT auth with Spring Security's OAuth2 resource server and role-based access (admin / visitor).",
+      "PostgreSQL full-text search over a weighted, generated tsvector column; Flyway-managed schema.",
+      "Redis caching for hot posts, rate-limited comments and contact form with honeypot spam protection.",
+      "Testcontainers integration tests and Docker Compose for the full stack."
+    ],
+    "tech": ["React", "TypeScript", "Vite", "Spring Boot 4", "Spring Security", "PostgreSQL", "Redis", "Flyway", "Docker"]
+  }
+]

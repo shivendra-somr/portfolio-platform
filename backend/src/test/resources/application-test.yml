@@ -1,0 +1,7 @@
+spring:
+  cache:
+    type: simple
+app:
+  admin:
+    username: admin
+    password: test-admin-password

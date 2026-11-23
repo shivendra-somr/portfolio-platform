@@ -1,0 +1,23 @@
+{
+  "name": "Shivendra Kumar",
+  "headline": "Java Backend Engineer",
+  "tagline": "Spring Boot · AI Integration · Cloud Data Processing",
+  "location": "Pune, Maharashtra",
+  "email": "shivendra.somr@gmail.com",
+  "phone": "+91 70126 27732",
+  "showPhone": false,
+  "yearsOfExperience": "3",
+  "availableForWork": true,
+  "summary": "Software Engineer with nearly 3 years of experience designing and developing Java-based backend applications, enterprise services, and AI-integrated solutions using Java 8/17, Spring Boot, REST APIs, Hibernate/JPA, and PostgreSQL. Hands-on experience building multi-tenant backend systems, AI agent orchestration frameworks, Retrieval-Augmented Generation (RAG) pipelines, and document-processing workflows using Google Gemini, ChromaDB, and OCR. Experienced in cloud-based data processing and analytics with AWS S3, Athena, Glue, Apache Airflow, and TimescaleDB, focusing on query optimization, OAuth 2.0 security, and application modernization.",
+  "highlights": [
+    { "value": "~3 yrs", "label": "Backend engineering" },
+    { "value": "2M+", "label": "Drives monitored by platforms I've worked on" },
+    { "value": "Java 8 → 17", "label": "Services modernized" }
+  ],
+  "resumeUrl": "/resume.pdf",
+  "socials": [
+    { "label": "GitHub", "url": "https://github.com/shivendra-somr", "icon": "github" },
+    { "label": "LinkedIn", "url": "https://linkedin.com/in/shivendra-choudhary", "icon": "linkedin" },
+    { "label": "Website", "url": "https://shivendrasomr.github.io", "icon": "globe" }
+  ]
+}

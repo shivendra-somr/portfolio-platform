@@ -1,0 +1,57 @@
+spring:
+  application:
+    name: portfolio-backend
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/portfolio}
+    username: ${DB_USERNAME:portfolio}
+    password: ${DB_PASSWORD:portfolio}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    enabled: true
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+  cache:
+    type: ${CACHE_TYPE:redis}
+    redis:
+      time-to-live: 10m
+  mail:
+    host: ${MAIL_HOST:localhost}
+    port: ${MAIL_PORT:1025}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+
+app:
+  site-url: ${APP_SITE_URL:http://localhost:5173}
+  jwt:
+    # Must be at least 32 bytes. Override in every real environment.
+    secret: ${JWT_SECRET:change-me-change-me-change-me-change-me-0123456789}
+    expiry-minutes: ${JWT_EXPIRY_MINUTES:120}
+  admin:
+    username: ${ADMIN_USERNAME:admin}
+    password: ${ADMIN_PASSWORD:}
+  cors:
+    allowed-origins: ${CORS_ORIGINS:http://localhost:5173}
+  mail:
+    enabled: ${MAIL_ENABLED:false}
+    notify-to: ${CONTACT_NOTIFY_TO:}
+    from: ${MAIL_FROM:no-reply@localhost}
+  rate-limit:
+    comments-per-minute: 5
+    contact-per-minute: 3
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

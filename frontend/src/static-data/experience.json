@@ -1,0 +1,22 @@
+[
+  {
+    "id": "agile-soft-system",
+    "role": "Software Engineer",
+    "company": "Agile Soft System Pvt. Ltd.",
+    "companyUrl": "",
+    "location": "Pune, Maharashtra",
+    "startDate": "2024-01",
+    "endDate": null,
+    "current": true,
+    "summary": "Backend services for an internal administration platform supporting operational visibility, drive-health monitoring, and customer-support workflows.",
+    "highlights": [
+      "Developed and maintained Spring Boot backend services for the internal administration platform, supporting operational visibility, drive-health monitoring, and customer-support workflows.",
+      "Modernized enterprise services from Java 8 to Java 17 and Spring Boot 3.x; enhanced JWT-based authentication, standardized Swagger (OpenAPI) documentation across microservices for security compliance, validated APIs via Postman, and containerized services with Docker.",
+      "Implemented and maintained data-processing workflows using AWS S3, Athena, Hive, and Parquet, orchestrated through Apache Airflow DAGs and scheduled jobs.",
+      "Supported automated end-to-end pipeline stages covering data ingestion, analytics, AI predictions, alerts, and email notifications across multiple tenants.",
+      "Optimized PostgreSQL queries through B-tree indexing, execution-plan analysis, and SQL tuning for join-heavy and anti-join queries; contributed to the PostgreSQL 14-to-17 upgrade.",
+      "Designed Java-side mappings for nested data structures and custom DTOs using Hibernate and Spring Data JPA; resolved production issues involving JSON/XML serialization, timestamp parsing, ORM mappings, and long-running SQL queries."
+    ],
+    "tech": ["Java 17", "Spring Boot 3", "PostgreSQL", "AWS S3", "Athena", "Airflow", "Docker", "JWT", "Swagger"]
+  }
+]
