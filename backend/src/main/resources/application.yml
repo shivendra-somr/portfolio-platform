@@ -1,3 +1,9 @@
+server:
+  # Render (and most PaaS hosts) tell the app which port to bind via $PORT.
+  port: ${PORT:8080}
+  # Trust X-Forwarded-* headers from the host's load balancer.
+  forward-headers-strategy: framework
+
 spring:
   application:
     name: portfolio-backend
@@ -5,6 +11,9 @@ spring:
     url: ${DB_URL:jdbc:postgresql://localhost:5432/portfolio}
     username: ${DB_USERNAME:portfolio}
     password: ${DB_PASSWORD:portfolio}
+    hikari:
+      # Small pool: free Postgres tiers (Neon, etc.) cap connections.
+      maximum-pool-size: ${DB_POOL_SIZE:5}
   jpa:
     open-in-view: false
     hibernate:
@@ -15,7 +24,13 @@ spring:
     redis:
       host: ${REDIS_HOST:localhost}
       port: ${REDIS_PORT:6379}
+      username: ${REDIS_USERNAME:}
+      password: ${REDIS_PASSWORD:}
+      ssl:
+        # Upstash and most hosted Redis require TLS.
+        enabled: ${REDIS_SSL:false}
   cache:
+    # "redis" or "simple" (in-memory, no Redis needed).
     type: ${CACHE_TYPE:redis}
     redis:
       time-to-live: 10m
@@ -55,3 +70,10 @@ management:
     web:
       exposure:
         include: health,info
+  health:
+    # Turn off when running without Redis (CACHE_TYPE=simple), or /actuator/health reports DOWN.
+    redis:
+      enabled: ${REDIS_HEALTH_ENABLED:true}
+    # Email is best-effort; an unreachable SMTP server shouldn't fail the health check.
+    mail:
+      enabled: false

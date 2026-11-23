@@ -1,0 +1,51 @@
+# Netlify: connect the repo; these settings are picked up automatically.
+[build]
+  base = "frontend"
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Forward API + API docs to the Spring Boot backend on Render (same-origin, so no CORS).
+# >>> Replace YOUR-BACKEND with your Render service name. <<<
+[[redirects]]
+  from = "/api/*"
+  to = "https://YOUR-BACKEND.onrender.com/api/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/swagger-ui/*"
+  to = "https://YOUR-BACKEND.onrender.com/swagger-ui/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/swagger-ui.html"
+  to = "https://YOUR-BACKEND.onrender.com/swagger-ui/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/v3/api-docs/*"
+  to = "https://YOUR-BACKEND.onrender.com/v3/api-docs/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/v3/api-docs"
+  to = "https://YOUR-BACKEND.onrender.com/v3/api-docs"
+  status = 200
+  force = true
+
+# SPA fallback: client-side routes like /blog/my-post serve index.html.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

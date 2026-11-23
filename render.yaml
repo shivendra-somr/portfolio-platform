@@ -1,0 +1,36 @@
+# Render Blueprint: New -> Blueprint -> pick this repo.
+# Database and Redis are external (Neon / Upstash), so their values are entered in the dashboard.
+services:
+  - type: web
+    name: portfolio-backend
+    runtime: docker
+    plan: free
+    rootDir: backend
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /actuator/health
+    autoDeploy: true
+    envVars:
+      - key: DB_URL            # jdbc:postgresql://<neon-host>/<db>?sslmode=require
+        sync: false
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ADMIN_USERNAME
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: APP_SITE_URL      # https://<your-site>.netlify.app
+        sync: false
+      - key: CORS_ORIGINS      # same as APP_SITE_URL (comma-separate several)
+        sync: false
+      # No Redis: in-memory cache. To use Upstash instead, set CACHE_TYPE=redis,
+      # REDIS_HOST, REDIS_PORT, REDIS_PASSWORD, REDIS_SSL=true, REDIS_HEALTH_ENABLED=true.
+      - key: CACHE_TYPE
+        value: simple
+      - key: REDIS_HEALTH_ENABLED
+        value: "false"
+      - key: MAIL_ENABLED
+        value: "false"

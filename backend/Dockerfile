@@ -14,4 +14,8 @@ RUN useradd -r -u 1001 spring
 USER spring
 COPY --from=build /app/app.jar app.jar
 EXPOSE 8080
+# Fit small instances (e.g. Render free = 512 MB): cap heap at 75% of the container's
+# memory, use the low-overhead Serial GC, keep thread stacks small, and favour fast
+# startup (C1 JIT only) since free instances cold-start after sleeping.
+ENV JAVA_TOOL_OPTIONS="-XX:MaxRAMPercentage=75 -XX:+UseSerialGC -Xss512k -XX:TieredStopAtLevel=1"
 ENTRYPOINT ["java", "-jar", "app.jar"]
