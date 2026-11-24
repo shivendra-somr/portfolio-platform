@@ -6,16 +6,16 @@ import { useAsync } from '../lib/useAsync'
 import { Seo } from '../components/Seo'
 import { Markdown } from '../components/Markdown'
 import { Comments } from '../components/Comments'
-import { TagList } from '../components/Sections'
+import { Loading, TagList } from '../components/Sections'
 import { Icon } from '../components/Icon'
 
 export function BlogPost() {
   const { slug = '' } = useParams()
-  const { data, error, loading } = useAsync(() => api.getPost(slug), [slug])
+  const { data, error, loading, slow } = useAsync(() => api.getPost(slug), [slug])
   const [likes, setLikes] = useState<number | null>(null)
   const [liked, setLiked] = useState(false)
 
-  if (loading) return <div className="container page"><p className="muted">Loading…</p></div>
+  if (loading) return <div className="container page"><Loading slow={slow} /></div>
   if (error) {
     const notFound = error instanceof ApiError && error.status === 404
     return (

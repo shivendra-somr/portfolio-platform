@@ -31,13 +31,35 @@ export function storeAuth(auth: TokenResponse | null) {
   }
 }
 
+// The free backend sleeps when idle and takes up to ~1 min to wake. The proxy in front of it
+// times out sooner (502/503/504), so GETs retry until the backend is up.
+const WAKE_STATUSES = new Set([502, 503, 504])
+const WAKE_DEADLINE_MS = 120_000
+const RETRY_DELAY_MS = 3_000
+
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
+
+async function fetchWithWake(url: string, init: RequestInit): Promise<Response> {
+  const retryable = (init.method ?? 'GET').toUpperCase() === 'GET'
+  const deadline = Date.now() + WAKE_DEADLINE_MS
+  for (;;) {
+    try {
+      const res = await fetch(url, init)
+      if (!retryable || !WAKE_STATUSES.has(res.status) || Date.now() > deadline) return res
+    } catch (err) {
+      if (!retryable || Date.now() > deadline) throw err
+    }
+    await sleep(RETRY_DELAY_MS)
+  }
+}
+
 async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
   const headers = new Headers(init.headers)
   if (init.body && !headers.has('Content-Type')) headers.set('Content-Type', 'application/json')
   const auth = getStoredAuth()
   if (auth) headers.set('Authorization', `Bearer ${auth.token}`)
 
-  const res = await fetch(`${BASE}${path}`, { ...init, headers })
+  const res = await fetchWithWake(`${BASE}${path}`, { ...init, headers })
   if (res.status === 401 && auth) storeAuth(null)
   if (!res.ok) {
     let message = res.statusText

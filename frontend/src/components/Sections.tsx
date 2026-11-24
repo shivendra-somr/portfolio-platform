@@ -109,3 +109,12 @@ export function PostCard({ post }: { post: PostSummary }) {
     </article>
   )
 }
+
+/** Loading line that explains a slow first load (free backend waking from sleep). */
+export function Loading({ slow, label = 'Loading…' }: { slow?: boolean; label?: string }) {
+  return (
+    <p className="muted" role="status">
+      {slow ? 'Waking up the server. Free hosting sleeps when idle, so the first load can take up to a minute…' : label}
+    </p>
+  )
+}

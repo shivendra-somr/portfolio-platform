@@ -2,7 +2,7 @@ import { useSearchParams } from 'react-router-dom'
 import { api } from '../lib/api'
 import { useAsync } from '../lib/useAsync'
 import { Seo } from '../components/Seo'
-import { PostCard, SectionHeading } from '../components/Sections'
+import { Loading, PostCard, SectionHeading } from '../components/Sections'
 import { Icon } from '../components/Icon'
 
 export function Blog() {
@@ -48,8 +48,12 @@ export function Blog() {
         </div>
       )}
 
-      {posts.loading && <p className="muted">Loading…</p>}
-      {posts.error && <p className="error">Couldn't load posts: {posts.error.message}</p>}
+      {posts.loading && <Loading slow={posts.slow} />}
+      {posts.error && (
+        <p className="error">
+          Couldn't load posts right now. <button className="link-btn" onClick={() => window.location.reload()}>Try again</button>
+        </p>
+      )}
       {posts.data && posts.data.items.length === 0 && (
         <p className="muted">{q || tag ? 'No posts match that.' : 'No posts published yet.'}</p>
       )}

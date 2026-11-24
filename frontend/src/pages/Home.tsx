@@ -4,7 +4,7 @@ import { api } from '../lib/api'
 import { useAsync } from '../lib/useAsync'
 import { Seo } from '../components/Seo'
 import { Icon } from '../components/Icon'
-import { ExperienceTimeline, PostCard, ProjectCard, SectionHeading, SkillGrid } from '../components/Sections'
+import { ExperienceTimeline, Loading, PostCard, ProjectCard, SectionHeading, SkillGrid } from '../components/Sections'
 
 export function Home() {
   const posts = useAsync(() => api.listPosts({ size: 3 }), [])
@@ -64,7 +64,7 @@ export function Home() {
         <div className="container">
           <SectionHeading eyebrow="Writing" title="Latest posts"
             action={<Link to="/blog" className="link-arrow">All posts →</Link>} />
-          {posts.loading && <p className="muted">Loading posts…</p>}
+          {posts.loading && <Loading slow={posts.slow} label="Loading posts…" />}
           {posts.error && <p className="muted">The blog API isn't reachable right now.</p>}
           {posts.data && posts.data.items.length === 0 && <p className="muted">First posts coming soon.</p>}
           {posts.data && posts.data.items.length > 0 && (
