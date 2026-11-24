@@ -7,8 +7,9 @@ import projectsJson from '../static-data/projects.json'
 import educationJson from '../static-data/education.json'
 import certificationsJson from '../static-data/certifications.json'
 import siteJson from '../static-data/site.json'
+import builtWithJson from '../static-data/built-with.json'
 import type {
-  Certification, Education, Experience, Profile, Project, SiteConfig, SkillGroup,
+  BuiltWith, Certification, Education, Experience, Profile, Project, SiteConfig, SkillGroup,
 } from '../types/portfolio'
 
 export const profile = profileJson as Profile
@@ -18,5 +19,6 @@ export const projects = projectsJson as Project[]
 export const education = educationJson as Education[]
 export const certifications = certificationsJson as Certification[]
 export const site = siteJson as SiteConfig
+export const builtWith = builtWithJson as BuiltWith
 
 export const featuredProjects = projects.filter((p) => p.featured)

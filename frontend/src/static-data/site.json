@@ -1,7 +1,7 @@
 {
   "title": "Shivendra Kumar · Java Backend Engineer",
   "description": "Portfolio and blog of Shivendra Kumar, a Java backend engineer working with Spring Boot, AI integration, and cloud data processing.",
-  "siteUrl": "http://localhost:5173",
+  "siteUrl": "https://shivendra-kumar.netlify.app",
   "nav": [
     { "label": "Home", "path": "/" },
     { "label": "Projects", "path": "/projects" },

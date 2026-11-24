@@ -11,6 +11,7 @@ All portfolio content lives here as JSON. Edit these files to change what the si
 | `education.json` | Degrees and courses |
 | `certifications.json` | Certifications and awards |
 | `site.json` | Site title, SEO description, nav links |
+| `built-with.json` | "Built with" page: architecture labels, tech stack, design decisions |
 
 Types for every file are in `src/types/portfolio.ts`, so a typo in a field name fails the build.
 Dates use `YYYY-MM` (or `YYYY`). Empty strings for `url`/`repoUrl`/`image` hide that link.

@@ -73,3 +73,16 @@ export interface SiteConfig {
   siteUrl: string
   nav: { label: string; path: string }[]
 }
+
+export interface BuiltWith {
+  intro: string
+  architecture: {
+    frontend: { title: string; subtitle: string }
+    backend: { title: string; subtitle: string }
+    database: { title: string; subtitle: string }
+    cache: { title: string; subtitle: string }
+    link: string
+  }
+  stack: { layer: string; items: { name: string; purpose: string }[] }[]
+  decisions: { title: string; body: string }[]
+}

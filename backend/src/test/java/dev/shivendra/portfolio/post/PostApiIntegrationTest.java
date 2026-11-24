@@ -3,6 +3,8 @@ package dev.shivendra.portfolio.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import static org.hamcrest.Matchers.hasItem;
+
 import com.jayway.jsonpath.JsonPath;
 import dev.shivendra.portfolio.TestcontainersConfiguration;
 import org.junit.jupiter.api.Test;
@@ -52,9 +54,14 @@ class PostApiIntegrationTest {
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.meta.tags[0]").value("security"));
 
-        mvc.perform(get("/api/posts").param("q", "signed tokens"))
+        mvc.perform(get("/api/posts").param("q", "resource server validated"))
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$.totalElements").value(1));
+            .andExpect(jsonPath("$.items[*].slug").value(hasItem("designing-jwt-auth-in-spring-boot")));
+
+        // Seeded posts from V2 migration are published and tagged.
+        mvc.perform(get("/api/posts/postgresql-full-text-search-before-elasticsearch"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.meta.tags").value(hasItem("postgresql")));
 
         mvc.perform(get("/api/posts/does-not-exist")).andExpect(status().isNotFound());
     }

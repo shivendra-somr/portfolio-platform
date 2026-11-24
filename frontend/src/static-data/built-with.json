@@ -1,0 +1,101 @@
+{
+  "intro": "A React single-page app on Netlify talks to a Spring Boot API on Render, backed by PostgreSQL on Neon. Portfolio content is versioned JSON in the repo; blog posts, comments and messages live in the database.",
+  "architecture": {
+    "frontend": { "title": "React + TypeScript", "subtitle": "Netlify · static-data/*.json" },
+    "backend": { "title": "Spring Boot API", "subtitle": "Render · Docker" },
+    "database": { "title": "PostgreSQL", "subtitle": "Neon · Flyway · full-text search" },
+    "cache": { "title": "Cache", "subtitle": "in-memory or Redis (Upstash)" },
+    "link": "/api proxied · JWT"
+  },
+  "stack": [
+    {
+      "layer": "Frontend",
+      "items": [
+        { "name": "React 19", "purpose": "UI, with native <title>/<meta> for per-page SEO" },
+        { "name": "TypeScript", "purpose": "Typed API client and typed JSON content" },
+        { "name": "Vite", "purpose": "Dev server with /api proxy, production build, code splitting" },
+        { "name": "React Router 7", "purpose": "Client-side routing for public pages and the admin panel" },
+        { "name": "react-markdown + remark-gfm", "purpose": "Renders blog posts written in Markdown" },
+        { "name": "rehype-highlight (highlight.js)", "purpose": "Syntax highlighting for code blocks" },
+        { "name": "Plain CSS + custom properties", "purpose": "Dark / light theme without a CSS framework" }
+      ]
+    },
+    {
+      "layer": "Backend",
+      "items": [
+        { "name": "Java 17", "purpose": "Language and runtime" },
+        { "name": "Spring Boot 4", "purpose": "REST API, configuration, actuator health checks" },
+        { "name": "Spring Security + OAuth2 Resource Server", "purpose": "Stateless JWT auth with admin / visitor roles" },
+        { "name": "Spring Data JPA / Hibernate", "purpose": "Persistence for posts, comments, users, messages" },
+        { "name": "Spring Cache", "purpose": "Caches hot posts, popular posts and tags" },
+        { "name": "Spring Mail", "purpose": "Contact-form email notifications" },
+        { "name": "Bean Validation", "purpose": "Request validation with RFC 7807 problem responses" },
+        { "name": "springdoc-openapi", "purpose": "Swagger UI so anyone can try the API" },
+        { "name": "Maven", "purpose": "Build and dependency management" }
+      ]
+    },
+    {
+      "layer": "Data",
+      "items": [
+        { "name": "PostgreSQL", "purpose": "Primary database; weighted tsvector + GIN index for search" },
+        { "name": "Flyway", "purpose": "Versioned schema migrations; Hibernate only validates" },
+        { "name": "Redis", "purpose": "Optional distributed cache (in-memory fallback on the free tier)" }
+      ]
+    },
+    {
+      "layer": "Testing & CI",
+      "items": [
+        { "name": "JUnit 5 + AssertJ", "purpose": "Unit tests" },
+        { "name": "Spring MockMvc", "purpose": "API-level integration tests" },
+        { "name": "Testcontainers", "purpose": "Integration tests against real PostgreSQL and Redis" },
+        { "name": "Oxlint", "purpose": "Frontend linting" },
+        { "name": "GitHub Actions", "purpose": "Runs backend tests and frontend lint + build on every push" }
+      ]
+    },
+    {
+      "layer": "Infrastructure & Hosting",
+      "items": [
+        { "name": "Docker + Docker Compose", "purpose": "Whole stack locally with one command" },
+        { "name": "Netlify", "purpose": "Hosts the frontend and proxies /api to the backend" },
+        { "name": "Render", "purpose": "Runs the backend container (Blueprint in render.yaml)" },
+        { "name": "Neon", "purpose": "Managed serverless PostgreSQL" },
+        { "name": "nginx", "purpose": "Serves the frontend in the Docker setup" },
+        { "name": "Mailpit", "purpose": "Catches outgoing email in local development" }
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "title": "Portfolio content in JSON, blog content in PostgreSQL",
+      "body": "Profile, skills, experience and projects change rarely and are versioned with the code in src/static-data. Blog posts and comments change often and need search, moderation and analytics, so they live behind the API."
+    },
+    {
+      "title": "Stateless JWT with Spring's OAuth2 resource server",
+      "body": "Instead of a hand-rolled filter, tokens are HS256-signed with NimbusJwtEncoder and validated by the resource server. Roles travel in a \"roles\" claim and map to ROLE_ADMIN / ROLE_VISITOR authorities."
+    },
+    {
+      "title": "PostgreSQL full-text search before Elasticsearch",
+      "body": "A generated, weighted tsvector column (title > summary > body) with a GIN index and websearch_to_tsquery covers search without another service to run."
+    },
+    {
+      "title": "Cache the read path only",
+      "body": "Single posts, popular posts and the tag list are cached; any admin write evicts them. View counts are incremented with a direct UPDATE so they never invalidate the cache."
+    },
+    {
+      "title": "Spam protection without CAPTCHAs",
+      "body": "Comments and the contact form use a hidden honeypot field plus per-IP sliding-window rate limits. Comments are held for moderation by default."
+    },
+    {
+      "title": "Flyway owns the schema",
+      "body": "Hibernate runs with ddl-auto=validate, so the app refuses to start if entities and migrations drift. Integration tests run the real migrations on PostgreSQL via Testcontainers."
+    },
+    {
+      "title": "One origin in production",
+      "body": "Netlify proxies /api to Render, so the browser only ever talks to one domain: no CORS preflights, no API URL baked into the build, and the backend can move without rebuilding the frontend."
+    },
+    {
+      "title": "Built to fit free tiers",
+      "body": "The backend binds to $PORT, keeps a 5-connection pool for Neon, caps the JVM heap for a 512 MB instance, and can run without Redis, so the whole site runs at zero cost."
+    }
+  ]
+}

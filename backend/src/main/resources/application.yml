@@ -20,6 +20,8 @@ spring:
       ddl-auto: validate
   flyway:
     enabled: true
+    # Migrations contain literal ${...} text (e.g. config examples in seeded posts).
+    placeholder-replacement: false
   data:
     redis:
       host: ${REDIS_HOST:localhost}
